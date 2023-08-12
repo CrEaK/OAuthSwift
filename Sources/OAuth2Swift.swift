@@ -340,12 +340,13 @@ open class OAuth2Swift: OAuthSwift {
     }
 
     @discardableResult
-    open func authorize(deviceToken deviceCode: String, grantType: String = "http://oauth.net/grant_type/device/1.0", completionHandler completion: @escaping TokenCompletionHandler) -> OAuthSwiftRequestHandle? {
+    open func authorize(deviceToken deviceCode: String, scope: String?, grantType: String = "http://oauth.net/grant_type/device/1.0", completionHandler completion: @escaping TokenCompletionHandler) -> OAuthSwiftRequestHandle? {
         var parameters = OAuthSwift.Parameters()
         parameters["client_id"] = self.consumerKey
         parameters["client_secret"] = self.consumerSecret
         parameters["code"] = deviceCode
         parameters["grant_type"] = grantType
+        parameters["scope"] = scope
 
         return requestOAuthAccessToken(
             withParameters: parameters,
